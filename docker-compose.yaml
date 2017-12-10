@@ -13,3 +13,33 @@ services:
     volumes:
     - "$PWD/features:/out"
     - "$PWD/image_spam_data:/data"
+  train-personal:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/dredze_ham.json /features/dredze_personal_spam.json dredze_personal"
+  train-public:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/dredze_ham.json /features/dredze_public_spam.json dredze_public"
+  train-princeton:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/dredze_ham.json /features/princeton_spam.json princeton"
+  train-dredze-combined:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/dredze_ham.json /features/dredze_combined_spam.json dredze_combined"
+  train-combined:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/dredze_ham.json /features/combined_spam.json combined"
