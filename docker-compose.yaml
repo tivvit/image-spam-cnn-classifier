@@ -1,0 +1,15 @@
+version: '3'
+services:
+  tf-serving:
+    build: .
+    ports:
+    - "2233:2233"
+    volumes:
+    - "$PWD/../models/:/models"
+  features:
+    build: features
+    depends_on:
+    - tf-serving
+    volumes:
+    - "$PWD/out:/out"
+    - "$PWD/image_spam:/data"
