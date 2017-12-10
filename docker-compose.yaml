@@ -1,15 +1,15 @@
 version: '3'
 services:
   tf-serving:
-    build: .
+    build: serving
     ports:
     - "2233:2233"
     volumes:
-    - "$PWD/../models/:/models"
+    - "$PWD/models/:/models"
   features:
-    build: features
+    build: feature-extractor
     depends_on:
     - tf-serving
     volumes:
-    - "$PWD/out:/out"
-    - "$PWD/image_spam:/data"
+    - "$PWD/features:/out"
+    - "$PWD/image_spam_data:/data"
