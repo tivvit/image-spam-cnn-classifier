@@ -7,7 +7,7 @@ from keras.models import Sequential
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 data_pth_ham = sys.argv[1]
 data_pth_spam = sys.argv[2]
@@ -42,6 +42,14 @@ def main():
     print("train samples: {}".format(len(X_train)))
     print("test samples: {}".format(len(X_test)))
 
+    ham_samples = len([i for i in y_train if i[0] == 1])
+    spam_samples = len([i for i in y_train if i[1] == 1])
+    print("Ham: {}".format(ham_samples))
+    print("Spam: {}".format(spam_samples))
+
+    ham_weight = spam_samples / float(ham_samples)
+    print("Ham weight: {}".format(ham_weight))
+
     model = Sequential([
         Dense(2048, input_dim=2048, activation='relu'),
         Dense(2048, input_dim=2048, activation='relu'),
@@ -57,8 +65,12 @@ def main():
     model.fit(
         X_train,
         y_train,
-        epochs=50,
+        epochs=80,
         batch_size=5000,
+        class_weight={
+            0: ham_weight,
+            1: 1,
+        }
     )
 
     scores = model.evaluate(X_test, y_test)

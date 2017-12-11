@@ -6,3 +6,5 @@ RUN pip install keras \
                 ujson \
                 sklearn
 
+COPY train.py /train/
+
