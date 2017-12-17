@@ -43,3 +43,15 @@ services:
     - "$PWD/features/:/features"
     - "$PWD/train:/train"
     command: "python train.py /features/dredze_ham.json /features/combined_spam.json combined"
+  train-email-ds-0_0.0:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python train.py /features/image_spam_public.json.gz /features email-ds-0_0.0 0 0.0"
+  analyze-email-ds:
+    build: train
+    volumes:
+    - "$PWD/features/:/features"
+    - "$PWD/train:/train"
+    command: "python analyze.py /features/image_spam_public.json.gz"
