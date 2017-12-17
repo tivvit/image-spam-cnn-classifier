@@ -1,11 +1,11 @@
-#FROM tensorflow/tensorflow
-FROM python
+FROM tensorflow/tensorflow
 
 WORKDIR /train
 
 RUN pip install keras \
                 ujson \
-                sklearn
+                sklearn \
+                h5py
 
 COPY *.py /train/
 
