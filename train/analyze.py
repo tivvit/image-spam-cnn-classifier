@@ -11,8 +11,8 @@ def main():
     for i in load(pth):
         y.append(i[0])
         c += 1
-        if c == 1000:
-            break
+        # if c == 1000:
+        #     break
     samples = len(y)
     reactions = sum([1 for i in y for j in i])
     multiple = sum([1 for i in y for j in i if len(j) > 1])
